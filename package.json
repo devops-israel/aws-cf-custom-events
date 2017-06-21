@@ -1,0 +1,50 @@
+{
+  "name": "aws-cf-custom-events",
+  "version": "0.0.1",
+  "description": "Custom resources for CloudWatch Events in CloudFormation.",
+  "author": "Evgeny Zislis <evgeny.zislis@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "npm run -s compat && npm run -s min && npm run -s replace",
+    "min": "npm run -s min:cwe-rule && npm run -s min:cwe-target && wc dist/lib/*.js",
+    "compat": "babel -d dist/ 'lib/**/*.js' 'test/**/*.js'",
+    "uglify": "uglifyjs --compress --verbose -b indent_level=2",
+    "min:cwe-rule": "npm run -s uglify -- -o dist/lib/custom-cf-cw-events-rule.min.js dist/lib/custom-cf-cw-events-rule.js",
+    "min:cwe-target": "npm run -s uglify -- -o dist/lib/custom-cf-cw-events-target.min.js dist/lib/custom-cf-cw-events-target.js",
+    "build:test": "tap -Rspec 'dist/test/**/*.test.js'",
+    "test": "babel-tap -Rspec 'test/**/*.test.js'",
+    "replace": "babel-node -e 'require(\"./build\").replace()'"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.74.0",
+    "cfn-response": "^1.0.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-preset-env": "^2.0.0-alpha",
+    "babel-tap": "^5.0.0",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.3.0",
+    "proxyquire": "^1.8.0",
+    "sinon": "^2.3.5",
+    "tap": "^10.5.1",
+    "tape": "^4.6.3",
+    "uglify-es": "^3.0.18"
+  },
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "node": "6.10"
+          },
+          "spec": true,
+          "debug": false
+        }
+      ]
+    ]
+  }
+}

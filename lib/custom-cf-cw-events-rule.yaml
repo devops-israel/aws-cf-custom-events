@@ -1,0 +1,68 @@
+Description: >
+  Custom CloudFormation resource for CloudWatch Events Rules.
+
+Parameters:
+
+  EnvironmentName:
+    Description: An environment name that will be prefixed to resource names
+    Type: String
+    Default: CustomResource
+
+Outputs:
+  Lambda:
+    Value: !Ref LambdaFunction
+    Export:
+      Name: !Sub ${EnvironmentName}-CloudWatchEventsRuleLambdaName
+
+  LambdaArn:
+    Value: !GetAtt LambdaFunction.Arn
+    Export:
+      Name: !Sub ${EnvironmentName}-CloudWatchEventsRuleLambdaArn
+
+Resources:
+
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Path: /
+      RoleName: !Sub ${EnvironmentName}-CF-EventsRules-${AWS::Region}
+      AssumeRolePolicyDocument:
+        Statement:
+        - Effect: Allow
+          Action:
+          - sts:AssumeRole
+          Principal:
+            Service:
+            - lambda.amazonaws.com
+      Policies:
+      - PolicyName: AllowCloudWatchEvents
+        PolicyDocument:
+          Statement:
+          - Effect: Allow
+            Action:
+            - events:*
+            Resource: "*"
+      - PolicyName: CloudWatchLogging
+        PolicyDocument:
+          Statement:
+          - Effect: Allow
+            Action:
+            - logs:PutLogEvents
+            - logs:CreateLogStream
+            - logs:CreateLogGroup
+            Resource: !Sub arn:aws:logs:::log-group:/aws/lambda/${AWS::StackName}-LambdaFunction-*
+
+  LambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Runtime: nodejs6.10
+      Handler: index.handler
+      Timeout: 30
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Code:
+        ZipFile: >
+          const Response = require('cfn-response');
+          exports.handler = function handler(event, context) {
+            Response.send(event, context, Response.FAILED, {});
+            throw new Error('Not Implemented');
+          }
