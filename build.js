@@ -15,11 +15,12 @@ function pasteCloudFormationZipFile(sourceCode, sourceStack, targetStack) {
   // then place the newly indented code after `ZipFile: >` at EOF
   const stackContent = fs.readFileSync(sourceStack)
     .toString()
-    .replace(/^(\s+ZipFile: >)([\s\S])+/m, `$1\n${codeContent}`);
+    .replace(/^(\s+ZipFile: >)([\s\S])+/m, '$1\n');
 
   console.log(`Replacing code in ${targetStack} ...`);
   // write the result in `dist/`
   fs.writeFileSync(targetStack, stackContent);
+  fs.appendFileSync(targetStack, codeContent);
 }
 
 exports.replace = function replace() {
