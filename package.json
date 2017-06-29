@@ -1,6 +1,6 @@
 {
   "name": "aws-cf-custom-events",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Custom resources for CloudWatch Events in CloudFormation.",
   "author": "Evgeny Zislis <evgeny.zislis@gmail.com>",
   "license": "MIT",
