@@ -6,40 +6,41 @@
   "license": "MIT",
   "scripts": {
     "build": "npm run -s compat && npm run -s min && npm run -s replace",
-    "min": "npm run -s min:cwe-rule && npm run -s min:cwe-target && wc dist/lib/*.js",
-    "compat": "babel -d dist/ 'lib/**/*.js' 'test/**/*.js'",
+    "min": "npm run -s min:cwe-rule && npm run -s min:cwe-target && wc dist/*.js",
+    "compat": "babel -d dist/ 'lib/**/*.js'",
     "uglify": "uglifyjs --compress --verbose -b indent_level=2",
-    "min:cwe-rule": "npm run -s uglify -- -o dist/lib/custom-cf-cw-events-rule.min.js dist/lib/custom-cf-cw-events-rule.js",
-    "min:cwe-target": "npm run -s uglify -- -o dist/lib/custom-cf-cw-events-target.min.js dist/lib/custom-cf-cw-events-target.js",
+    "min:cwe-rule": "npm run -s uglify -- -o dist/custom-cf-cw-events-rule.min.js dist/custom-cf-cw-events-rule.js",
+    "min:cwe-target": "npm run -s uglify -- -o dist/custom-cf-cw-events-target.min.js dist/custom-cf-cw-events-target.js",
     "build:test": "tap -Rspec 'dist/test/**/*.test.js'",
     "test": "babel-tap -Rspec 'test/**/*.test.js'",
     "replace": "babel-node -e 'require(\"./build\").replace()'"
   },
   "dependencies": {
-    "aws-sdk": "^2.74.0",
+    "aws-sdk": "^2.435.0",
     "cfn-response": "^1.0.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.4.3",
     "babel-eslint": "^7.2.3",
-    "babel-preset-env": "^2.0.0-alpha",
     "babel-tap": "^5.0.0",
     "eslint": "^3.19.0",
-    "eslint-config-airbnb-base": "^11.2.0",
-    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-import": "^2.16.0",
     "proxyquire": "^1.8.0",
-    "sinon": "^2.3.5",
-    "tap": "^10.5.1",
-    "tape": "^4.6.3",
-    "uglify-es": "^3.0.18"
+    "sinon": "^2.4.1",
+    "tap": "^12.6.1",
+    "tape": "^4.10.1",
+    "uglify-es": "^3.3.9"
   },
   "babel": {
     "presets": [
       [
-        "env",
+        "@babel/preset-env",
         {
           "targets": {
-            "node": "6.10"
+            "node": "8.10"
           },
           "spec": true,
           "debug": false

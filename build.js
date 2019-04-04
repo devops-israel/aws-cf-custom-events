@@ -25,14 +25,14 @@ function pasteCloudFormationZipFile(sourceCode, sourceStack, targetStack) {
 
 exports.replace = function replace() {
   pasteCloudFormationZipFile(
-    'dist/lib/custom-cf-cw-events-rule.min.js',
+    'dist/custom-cf-cw-events-rule.min.js',
     'lib/custom-cf-cw-events-rule.yaml',
-    'dist/lib/custom-cf-cw-events-rule.yaml',
+    'dist/custom-cf-cw-events-rule.yaml',
   );
 
   pasteCloudFormationZipFile(
-    'dist/lib/custom-cf-cw-events-target.min.js',
+    'dist/custom-cf-cw-events-target.min.js',
     'lib/custom-cf-cw-events-target.yaml',
-    'dist/lib/custom-cf-cw-events-target.yaml',
+    'dist/custom-cf-cw-events-target.yaml',
   );
 };
