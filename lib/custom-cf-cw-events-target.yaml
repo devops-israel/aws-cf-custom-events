@@ -42,6 +42,13 @@ Resources:
             Action:
             - events:*
             Resource: "*"
+      - PolicyName: IamPassRole
+        PolicyDocument:
+          Statement:
+          - Effect: Allow
+            Action:
+            - iam:PassRole
+            Resource: "*"
       - PolicyName: CloudWatchLogging
         PolicyDocument:
           Statement:
@@ -50,7 +57,7 @@ Resources:
             - logs:PutLogEvents
             - logs:CreateLogStream
             - logs:CreateLogGroup
-            Resource: !Sub arn:aws:logs:::log-group:/aws/lambda/${AWS::StackName}-LambdaFunction-*
+            Resource: "*"
 
   LambdaFunction:
     Type: AWS::Lambda::Function

@@ -114,7 +114,7 @@ test('events-targets: createResource => putTargets (Create) => success', (t) => 
 
   t.plan(1);
 
-  const targetPhysicalId = 'test-stack-name-Target123-UT4QDIDSRK4IK';
+  const targetPhysicalId = 'Target123-UT4QDIDSRK4IK';
 
   t.deepEqual(
     fm.fake.Response.send.firstCall.args,
@@ -137,7 +137,7 @@ test('events-targets: createResource => putTargets (Create) => FailedEntries', (
     },
   };
 
-  const targetPhysicalId = 'test-stack-name-Target123-UT4QDIDSRK4IK';
+  const targetPhysicalId = 'Target123-UT4QDIDSRK4IK';
 
   // returns errors in the returned object, not in err.
   // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CloudWatchEvents.html#putTargets-property
